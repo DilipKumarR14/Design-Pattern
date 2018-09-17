@@ -6,9 +6,9 @@ class Testing
     public function testing()
     {
         $ref=new utility();
-        echo "what to manufacture  pc  / computer  / server \n";
+        echo "what to manufacture  pc  / laptop  / server \n";
         $option = $ref->getstring();
-        echo strcasecmp('laptop','LAPTOP')."\n";
+        // echo strcasecmp('laptop','LAPTOP')."\n";
         switch ($option) {
             case strcasecmp('pc',$option):
                 $res = ComputerFactory::getComputer('pc', "4gb ", "i3 core", "1tb");
@@ -34,7 +34,7 @@ class Testing
                 break;
             default:
                 echo "enter the correct option\n";
-                testing();
+                $this->testing();
                 break;
         }
 
