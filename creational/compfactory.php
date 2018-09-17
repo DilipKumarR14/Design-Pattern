@@ -1,7 +1,9 @@
 <?php
 include "diffcomputer.php";
+//Computer Factory that produces different Computer
 class ComputerFactory
 {
+    //fetch the computer to produce
     public static function getComputer($type, $ram, $cpu, $hdd)
     {
         if ($type == 'pc') {

@@ -1,4 +1,5 @@
 <?php
+//abstract of COmputer to be created
 abstract class Computer
 {
     abstract public function getRam();
