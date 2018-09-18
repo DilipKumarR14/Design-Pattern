@@ -11,24 +11,29 @@ interface Observer
     public function update();
     public function setSubject(Subject $sub);
 }
+//Subscriber
 class MyTopic implements Subject
 {
     public $observers;
     private $message;
-    private $changed;
+    // private $changed;
 
     public function __construct()
     {
         $observers = array();
-        $this->message = $this->getUpdate();
-        $this->changed = $this->notifyObserver();
     }
+    /**
+     * user is able to register 
+     */
     public function register(Observer $obj)
     {
         print("Subject: Attached an observer.\n");
         $this->observers[] = $obj;
 
     }
+    /**
+     * user is able to unregister 
+     */
     public function unregister(Observer $obj)
     {
         foreach ($this->observers as $key => $s) {
@@ -38,55 +43,70 @@ class MyTopic implements Subject
             }
         }
     }
+    /**
+     * user will be notified 
+     */
     public function notifyObserver()
     {
         print("Subject: Notifying observers...\n");
         foreach ($this->observers as $obj) {
-            $res = "subscription is getting expired\n";
-            echo $res;
-            echo "\n";
+            $this->getUpdate($obj);
         }
     }
-
+    /**
+     * user is able to get update available 
+     */
     public function getUpdate(Observer $obj)
     {
-        foreach ($obj as $key => $value) {
-            $res = "new video is added\n";
-            echo $res;
-            echo "\n";
-        }
+        return $this->message;
     }
-    public function postMessage()
+    /**
+     * posting the message to user 
+     */
+    public function postMessage($message)
     {
-        $res = "new Update is available\n";
-        return $res;
+        $this->message = $message;
+        $this->changed = true;
+        $this->notifyObserver();
     }
 
 }
 
 class MyTopicSubscriber implements Observer
 {
+    private $name;
+    private $topic;
+    public function __construct($name,$topic)
+    {
+        $this->name = $name;
+        $this->topic = $topic;
+    }
+    /**
+     * Channel give the update to user 
+     */
     public function update()
     {
-        $t = new MyTopic();
-        $t->getUpdate();
-
+        echo "Today topic is on  : " . $this->name . "\n";
+        echo "New Video is Added : ".$this->topic."\n";
     }
     public function setSubject(Subject $sub)
     {
-        $sub = $this->update();
-        return $sub;
+        $this->topic = $sub;
     }
 }
 
 $t = new MyTopic();
-$o = new MyTopicSubscriber();
-$o1 = new MyTopicSubscriber();
-$o2 = new MyTopicSubscriber();
-
+$o = new MyTopicSubscriber('New video Added','ganganmstyle.mp4');
+$o1 = new MyTopicSubscriber('New video Added','ganganmstyle.mp4');
+$o2 = new MyTopicSubscriber('New video Added','gangnamstyle.mp4');
 $t->register($o);
 $t->register($o1);
 $t->register($o2);
-print_r($t);
+$t->unregister($o1);
+$t->notifyObserver();
+$t->getUpdate($o);
+$t->postMessage("Updated Available\n");
+$o->update();
 
-?>
+print_r($t);
+echo "\n";
