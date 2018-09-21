@@ -13,6 +13,6 @@
     }
 }
 $n=Eager::getInstance();
-echo $n."\n";
+var_dump($n);
 
 ?>
