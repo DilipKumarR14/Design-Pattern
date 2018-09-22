@@ -1,9 +1,19 @@
 <?php
 include "diffcomputer.php";
-//Computer Factory that produces different Computer
+/*******************************************************************************
+* @description : Computer Factory that produces different Computer
+* @getComputer() : helper method that creates the computer
+*******************************************************************************/
+
 class ComputerFactory
 {
     //fetch the computer to produce
+    /**
+     * @var $type = accept the what to create 
+     * @var $ram = create a ram for that type
+     * @var $cpu = create a cpu for that type
+     * @var $hdd = create a hard disk for that type
+     */
     public static function getComputer($type, $ram, $cpu, $hdd)
     {
         if ($type == 'pc') {

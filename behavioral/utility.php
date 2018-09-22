@@ -76,7 +76,8 @@ class utility
                 echo "\n";
                 break;
             default:
-                # code...
+                    echo "Wrong OPtion!!!!!\n";
+                    visittesting();
                 break;
         }
     }

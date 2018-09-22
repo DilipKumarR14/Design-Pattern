@@ -1,5 +1,16 @@
 <?php
+/*******************************************************************************
+* @description : Abstract Employee Class 
+* @getName() : method that fetch the name of employee
+* @getId() : method that fetch the id of employee
+* @getAge() : method that fetch the age of employee
+*******************************************************************************/
 abstract class Employee {
+    /**
+     * @var $name = receives the name of employee
+     * @var $id = receive the id of employee
+     * @var $age = receive the age of employee
+     */
     protected $name;
     protected $id;
     protected $age;
@@ -41,6 +52,7 @@ class Emp extends Employee {
   echo 'age 1 : '.$e1->getAge()."\n";
 
 echo "\n";
+//cloning the previous Object of type e1
   $name2 = clone $e1;
   $name2->set('SUman',2,24);
   
