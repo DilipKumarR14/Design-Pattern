@@ -1,4 +1,15 @@
 <?php
+/*******************************************************************************
+* @description : Observer design pattern
+* @register() :User is able to Register to the particular subject
+* @unregister() : User is able to un-Register to the particular subject
+* @notifyObserver() :user will be notified of any update
+* @getUpdate() : user is able to get update
+* @update() : fetch the update
+* @setSubject() : set the subject to get update
+*******************************************************************************/
+
+/*@var $obj = Receive the object of type Observer*/
 interface Subject
 {
     public function register(Observer $obj);
@@ -6,6 +17,8 @@ interface Subject
     public function notifyObserver();
     public function getUpdate(Observer $obj);
 }
+/*@var $sub = Receive the object of type Subject*/
+
 interface Observer
 {
     public function update();
@@ -89,24 +102,14 @@ class MyTopicSubscriber implements Observer
         echo "Today topic is on  : " . $this->name . "\n";
         echo "New Video is Added : ".$this->topic."\n";
     }
+    /**
+    *set the subject to get update
+    */
     public function setSubject(Subject $sub)
     {
         $this->topic = $sub;
     }
 }
 
-$t = new MyTopic();
-$o = new MyTopicSubscriber('New video Added','ganganmstyle.mp4');
-$o1 = new MyTopicSubscriber('New video Added','ganganmstyle.mp4');
-$o2 = new MyTopicSubscriber('New video Added','gangnamstyle.mp4');
-$t->register($o);
-$t->register($o1);
-$t->register($o2);
-$t->unregister($o1);
-$t->notifyObserver();
-$t->getUpdate($o);
-$t->postMessage("Updated Available\n");
-$o->update();
 
-print_r($t);
-echo "\n";
+?>

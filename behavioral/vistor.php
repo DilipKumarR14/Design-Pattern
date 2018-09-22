@@ -1,4 +1,10 @@
 <?php
+/*******************************************************************************
+* @description :Visitor design pattern
+* @accept() :calculate the total value in cart and accept the parameter of type ShoppingCartVisitor
+* @visitfruit() : calculate the total value of fruit present in the cart
+* @visitbook() : calculate the total value of book present in the cart
+*******************************************************************************/
 include "utility.php";
 interface ItemElement
 {
@@ -6,20 +12,31 @@ interface ItemElement
 }
 interface ShoppingCartVisitor
 {
-    public function vistfruit(Fruit $fr);
-    public function vistbook(Book $bo);
+    public function visitfruit(Fruit $fr);
+    public function visitbook(Book $bo);
 }
 
 class ShoppingCartVisitorImpl implements ShoppingCartVisitor
 {
-    public function vistfruit(Fruit $fr)
+
+    /**
+     * calculate the total value of fruit present in the cart
+     * @var $fr is of type Fruit Object
+     * 
+     */
+    public function visitfruit(Fruit $fr)
     {
         $cost = 0;
         $cost = $fr->getPricePerKg() * $fr->getWeight();
         echo "Total cost of " . $fr->getName() . "fruit is : " . $cost . "\n";
         return $cost;
     }
-    public function vistbook(Book $bo)
+    /**
+     * calculate the total value of fruit present in the cart
+     * @var $bo is of type Book Object
+     * 
+     */
+    public function visitbook(Book $bo)
     {
 
         $cost = 0;
@@ -38,6 +55,11 @@ class ShoppingCartVisitorImpl implements ShoppingCartVisitor
 
 class Book implements ItemElement
 {
+    /**
+     * @var $price - receive the price of the Each Book
+     * @var $isbnnumber - receive the ISBN number of the Each Book
+     * 
+     */
     public $price;
     public $isbnnumber;
 
@@ -62,9 +84,12 @@ class Book implements ItemElement
     {
         return $this->isbnnumber;
     }
+    /**
+     * Receive the Object of type ShoppingCartVisitor to calculate
+     */
     public function accept(ShoppingCartVisitor $shopvisitor)
     {
-        return $shopvisitor->vistbook($this);
+        return $shopvisitor->visitbook($this);
     }
 
 }
@@ -104,55 +129,13 @@ class Fruit implements ItemElement
         $this->weight = $weight;
         $this->name = $name;
     }
-
+     /**
+     * Receive the Object of type ShoppingCartVisitor to calculate
+     */
     public function accept(ShoppingCartVisitor $shopvisitor)
     {
-        return $shopvisitor->vistfruit($this);
+        return $shopvisitor->visitfruit($this);
     }
 
 }
-
-class ShoppingCartClient
-{
-    public function testing()
-    {
-        $ref = new utility();
-        echo "Enter the 1-book \ 2-Fruit\n";
-        $option = $ref->getint();
-        switch ($option) {
-            case 1:
-                echo "Enter the Book isbn\n";
-                $isbn = $ref->getstring();
-                echo "ENter the Book Price\n";
-                $price = $ref->getint();
-                $book = new Book($price,$isbn);
-                $shop = new ShoppingCartVisitorImpl();
-                $cost = $book->accept($shop);
-                echo "Total Cost : " . $cost;
-                echo "\n";
-                break;
-            case 2:
-                echo "Enter the Fruit name : ";
-                $name = $ref->getstring();
-
-                echo "ENter the Fruit Weight : ";
-                $weight = $ref->getint();
-
-                echo "ENter the Fruit Price per kg : ";
-                $pricePerKg = $ref->getint();
-
-                $fruit = new Fruit($pricePerKg, $weight, $name);
-                $shop = new ShoppingCartVisitorImpl();
-                $cost = $fruit->accept($shop);
-                echo "Total Cost : " . $cost;
-                echo "\n";
-                break;
-            default:
-                # code...
-                break;
-        }
-    }
-}
-$a=new ShoppingCartClient();
-$a->testing();
 ?>
