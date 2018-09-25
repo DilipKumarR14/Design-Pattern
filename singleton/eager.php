@@ -1,6 +1,13 @@
 <?php
+/*******************************************************************************
+* @description : Singleton Design Pattern
+* @getInstance() : Method that returns the Object Created 
+*******************************************************************************/
  class Eager
   {
+    /**
+     * @var $instance : holds the object being created
+     */
     private static $instance;
     private function __construct()
     {

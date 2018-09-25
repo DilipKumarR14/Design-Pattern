@@ -1,4 +1,6 @@
 <?php
+include "utility.php";
+$ref=new utility();
 /*******************************************************************************
 * @description : Abstract Employee Class 
 * @getName() : method that fetch the name of employee
@@ -16,6 +18,7 @@ abstract class Employee {
     protected $age;
     // making the class that inherit this class to be cloneable
     abstract function __clone();
+
     function getName() {
         return $this->name;
     }
@@ -30,7 +33,6 @@ abstract class Employee {
         $this->id = $id;
         $this->age = $age;
     }
-   
 }
 
 class Emp extends Employee {
@@ -41,24 +43,5 @@ class Emp extends Employee {
         
     }
 }
- 
-
-  $e1 = new Emp();
-  $e1->set('Dilip',1,21);
-  
-
-  echo 'Name 1 : '.$e1->getName()."\n";
-  echo 'id 1 : '.$e1->getId()."\n";
-  echo 'age 1 : '.$e1->getAge()."\n";
-
-echo "\n";
-//cloning the previous Object of type e1
-  $name2 = clone $e1;
-  $name2->set('SUman',2,24);
-  
-
-  echo 'Name 2 : '.$name2->getName()."\n";
-  echo 'id 2 : '.$name2->getId()."\n";
-  echo 'age 2 : '.$name2->getAge()."\n";
-
+$ref->test();
 ?>

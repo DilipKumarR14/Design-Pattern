@@ -15,5 +15,5 @@ class Employee extends Emp
 $e = new Employee();
 $e->__construct();
 $q = clone $e;
-$q-
+$q->__construct();
 ?>
